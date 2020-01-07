@@ -33,3 +33,14 @@ steps:
     command: test
     projects: '**/*TestProject*/*.csproj'
     arguments: '--configuration $(buildConfiguration)'
+
+# Publish to nuget 
+- task: DotNetCoreCLI@2
+  inputs:
+    command: pack
+    outputDir: '$(Build.ArtifactStagingDirectory)/MyPack'
+    
+- task: PublishBuildArtifacts@1
+  inputs:
+    pathtoPublish: '$(Build.ArtifactStagingDirectory)/MyPack'
+    artifactName: drop1
